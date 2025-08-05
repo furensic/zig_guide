@@ -26,3 +26,13 @@ test "while with continue" {
     }
     try expect(sum == 4); // i still have to figure out why this works, i assume: 0 + 0 = 0 + 1 = 1 + 2 (but here it continues, so why is it equal to 4?)
 }
+
+test "while with break" {
+    var sum: u8 = 0;
+    var i: u8 = 0;
+    while (i <= 3) : (i += 1) {
+        if (i == 2) break; // i get this. What does the continue keyword do in a while loop then?
+        sum += i;
+    }
+    try expect(sum == 1);
+}

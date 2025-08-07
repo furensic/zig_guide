@@ -1,0 +1,20 @@
+const expect = @import("std").testing.expect;
+
+test "for" {
+    const string = [_]u8{ 'a', 'b', 'c' };
+
+    for (string, 0..) |character, index| { // this takes some getting used to type
+        _ = character;
+        _ = index;
+    }
+
+    for (string) |character| {
+        _ = character;
+    }
+
+    for (string, 0..) |_, index| {
+        _ = index;
+    }
+
+    for (string) |_| {}
+}

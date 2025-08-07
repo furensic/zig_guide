@@ -46,3 +46,34 @@ test "try" {
     };
     try expect(v == 12); // v cant be 12 because failFn returns the error from failingFunction
 }
+
+var problems: u32 = 98;
+
+fn failFnCounter() error{Oops}!void{
+    errdefer problems += 1;
+    try failingFunction();
+}
+
+test "errdefer" {
+    failFnCounter() catch |err| {
+        try expect(err == error.Oops);
+        try expect(problems == 99);
+        return;
+    };
+}
+
+fn createFile() !void {
+    return error.AccessDenied;
+}
+
+test "inferred error set" {
+    const x: error{AccessDenied}!void = createFile();
+
+    _ = x catch {}; // still gotta go through this to understand
+}
+
+// merging error sets
+const A = error{ NotDir, PathNotFound };
+const B = error{ OutOfMemory, PathNotFound };
+const C = A || B;
+

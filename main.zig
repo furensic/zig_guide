@@ -1,5 +1,5 @@
 const std = @import("std");
-
+const expect = @import("std").testing.expect;
 pub fn main() void {
     std.debug.print("Hello, {s}!\n", .{"World!"});
 
@@ -19,4 +19,15 @@ pub fn main() void {
     const length = a.len; // Length of array a (5)
     _ = b;
     _ = length;
+}
+
+//- Functions
+fn addFive(x: u32) u32 {
+    return x + 5;
+}
+
+test "function" {
+    const y = addFive(0);
+    try expect(@TypeOf(y) == u32); // test if function returns type u32
+    try expect(y == 5); // test if function returns 0 + 5 = 5
 }
